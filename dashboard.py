@@ -5,6 +5,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import numpy as np
+from streamlit_pivottable import st_pivottable
 
 # Configuración de la página
 st.set_page_config(page_title="Mi Dashboard", layout="wide")
@@ -90,3 +91,35 @@ st.download_button(
     file_name="datos_filtrados.csv",
     mime="text/csv"
 )
+
+st.markdown("---")
+
+# Datos de ejemplo
+df = pd.DataFrame({
+    "Fecha": pd.date_range("2024-01-01", periods=200, freq="D").astype(str),
+    "Región": np.random.choice(["Norte", "Sur", "Este", "Oeste"], 200),
+    "Producto": np.random.choice(["Laptop", "Monitor", "Teclado", "Mouse"], 200),
+    "Vendedor": np.random.choice(["Ana", "Carlos", "María", "Pedro"], 200),
+    "Ventas": np.random.randint(100, 5000, 200),
+    "Unidades": np.random.randint(1, 20, 200)
+})
+
+st.subheader("Arrastra los campos para crear tu tabla dinámica:")
+
+# Tabla dinámica interactiva
+st_pivottable(
+    df,
+    rows=["Región"],           # Filas por defecto
+    cols=["Producto"],         # Columnas por defecto
+    vals=["Ventas"],           # Valores por defecto
+    aggregatorName="Sum",      # Función: Sum, Count, Average, etc.
+    rendererName="Table"       # Tipo: Table, Heatmap, Bar Chart, etc.
+)
+
+st.markdown("---")
+st.info("""
+**Instrucciones:**
+- Arrastra campos a "filas" o "columnas"
+- Cambia la función de agregación (Sum, Count, Average, etc.)
+- Cambia el tipo de visualización (Table, Heatmap, Bar Chart, etc.)
+""")
