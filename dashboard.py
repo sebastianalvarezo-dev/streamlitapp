@@ -75,7 +75,7 @@ with col_der:
         color="Producto", title=""
     )
     st.plotly_chart(fig_barras, use_container_width=True)
-
+"""
 # Tabla de datos
 st.subheader("📋 Datos Detallados")
 st.dataframe(
@@ -85,13 +85,14 @@ st.dataframe(
 )
 
 # Botón para descargar datos
+
 st.download_button(
     label="⬇️ Descargar CSV",
     data=df_filtrado.to_csv(index=False),
     file_name="datos_filtrados.csv",
     mime="text/csv"
 )
-
+"""
 st.markdown("---")
 
 # Datos de ejemplo
